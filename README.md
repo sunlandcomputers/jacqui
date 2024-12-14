@@ -21,17 +21,20 @@ License: GPLv2 or later; License URI: http://www.gnu.org/licenses/gpl-2.0.html;
 Tags: one-column, two-columns, right-sidebar, 
 
 
-== ABOUT JACQUI ==
+## ABOUT JACQUI 
 
-Supported post formats: Video, Image, Aside, Status, Audio, Quote, Link and Gallery. Works perfectly in desktop browsers, tablets and handheld devices. [For a live demo go to ](http://jacqui.tswdev.com].
-![jacqui theme](https://github.com/sunlandcomputers/jacqui/screenshot.png)
+Supported post formats: Video, Image, Aside, Status, Audio, Quote, Link and Gallery. Works perfectly in desktop browsers, tablets and handheld devices. 
 
-== NOTES ==
+[For a live demo go to ](http://jacqui.tswdev.com]
+
+![jacqui theme](https://github.com/sunlandcomputers/jacqui/blob/main/screenshot.png)
+
+## NOTES 
 
 * Only top level (parent) menu items should used in footer. Same with top menu IF you are concerned about touch screens. It is a good place to add social media links as a menu item.
 * If a left sidebar layout option is selected, the sidebar will go offcanvas on mobile devices and appear below the mobile menu when the top left icon is clicked.
 
-== LICENSE ==
+## LICENSES
 
 html5shiv - http://code.google.com/p/html5shiv/
 License: [[http://opensource.org/licenses/MIT|MIT]]
@@ -53,6 +56,6 @@ License: [[http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL|SIL O
 
 All bundled images including background created with GIMP by Author | GPL License
 
-== CHANGELOG ==
+## CHANGELOG 
 2.0.0
 * 1st release to ClassicPress
