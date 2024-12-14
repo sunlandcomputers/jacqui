@@ -1,110 +1,84 @@
-/* ========================================================================
- * Bootstrap: alert.js v3.0.0
- * http://twbs.github.com/bootstrap/javascript.html#alerts
- * ========================================================================
- * Copyright 2013 Twitter, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * ======================================================================== */
+// Function to close an alert element
+function closeAlert(el) {
+  const element = el;
+  let selector = element.dataset.dismissTarget;
 
-
-+function ($) { "use strict";
-
-  // ALERT CLASS DEFINITION
-  // ======================
-
-  var dismiss = '[data-dismiss="alert"]'
-  var Alert   = function (el) {
-    $(el).on('click', dismiss, this.close)
+  if (!selector) {
+    selector = element.href && element.href.split("#")[1]; // strip for older browsers
   }
 
-  Alert.prototype.close = function (e) {
-    var $this    = $(this)
-    var selector = $this.attr('data-target')
+  const target = document.querySelector(selector);
 
-    if (!selector) {
-      selector = $this.attr('href')
-      selector = selector && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
-    }
-
-    var $parent = $(selector)
-
-    if (e) e.preventDefault()
-
-    if (!$parent.length) {
-      $parent = $this.hasClass('alert') ? $this : $this.parent()
-    }
-
-    $parent.trigger(e = $.Event('close.bs.alert'))
-
-    if (e.isDefaultPrevented()) return
-
-    $parent.removeClass('in')
-
-    function removeElement() {
-      $parent.trigger('closed.bs.alert').remove()
-    }
-
-    $.support.transition && $parent.hasClass('fade') ?
-      $parent
-        .one($.support.transition.end, removeElement)
-        .emulateTransitionEnd(150) :
-      removeElement()
+  if (event) {
+    event.preventDefault();
   }
 
-
-  // ALERT PLUGIN DEFINITION
-  // =======================
-
-  var old = $.fn.alert
-
-  $.fn.alert = function (option) {
-    return this.each(function () {
-      var $this = $(this)
-      var data  = $this.data('bs.alert')
-
-      if (!data) $this.data('bs.alert', (data = new Alert(this)))
-      if (typeof option == 'string') data[option].call($this)
-    })
+  if (!target) {
+    target = element.classList.contains("alert") ? element : element.parentNode;
   }
 
-  $.fn.alert.Constructor = Alert
+  const closeEvent = new Event("close.alert");
+  target.dispatchEvent(closeEvent);
 
+  if (closeEvent.defaultPrevented) return;
 
-  // ALERT NO CONFLICT
-  // =================
+  target.classList.remove("in");
 
-  $.fn.alert.noConflict = function () {
-    $.fn.alert = old
-    return this
+  function removeElement() {
+    const removedEvent = new Event("closed.alert");
+    target.dispatchEvent(removedEvent);
+    target.remove();
   }
 
+  if (target.classList.contains("fade") && document.body.style.transitionProperty) {
+    target.addEventListener("transitionend", removeElement);
+    target.style.transition = "opacity 0.15s ease-out"; // Simulate transition
+  } else {
+    removeElement();
+  }
+}
 
-  // ALERT DATA-API
-  // ==============
+// Function to initialize and handle clicks on alert elements
+function alertPlugin(element, option) {
+  const alertElement = element;
+  let data = alertElement.dataset.alert;
 
-  $(document).on('click.bs.alert.data-api', dismiss, Alert.prototype.close)
+  if (!data) {
+    alertElement.dataset.alert = (data = {}); // Empty object for data
+    data.close = closeAlert.bind(null, alertElement); // Bind closeAlert to element
+  }
 
-  $( '#bavotasan-admin-bar' ).prependTo( '#wpwrap' ).show();
+  if (typeof option === "string" && data[option]) {
+    data[option](); // Call the appropriate method
+  }
+}
 
-  $( '.close' ).click( function(e) {
-	e.preventDefault();
+// Restore previous $.fn.alert if it existed
+const oldAlert = window.alert; // Store previous function
 
-	$.post( ajaxurl, {
-	    action: 'bavotasan_hide_adminbar',
-	}, function( response ) {
-	    if ( '1' === response )
-	        return true;
-	});
-  });
-}(window.jQuery);
+window.alertPlugin = alertPlugin; // Assign the plugin function
+
+// Attach click event listener for closing alerts
+document.addEventListener("click", (event) => {
+  if (event.target.matches('[data-dismiss="alert"]')) {
+    closeAlert(event.target);
+  }
+});
+
+// Your existing code to prepend and show the admin bar
+document.getElementById("bavotasan-admin-bar").prependTo(document.getElementById("wpwrap")).style.display = "block";
+
+// Your existing code to handle close button click with AJAX request
+document.querySelector(".close").addEventListener("click", (event) => {
+  event.preventDefault();
+
+  fetch(ajaxurl, {
+    method: "POST",
+    body: JSON.stringify({ action: "bavotasan_hide_adminbar" }),
+    headers: { "Content-Type": "application/json" },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data === "1") return true;
+    });
+}); 
