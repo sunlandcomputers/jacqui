@@ -109,8 +109,8 @@ function jacqui_setup()
     );
     add_theme_support( 'custom-background', $custom_background_support );
 
-    // Add HTML5 elements
-    add_theme_support( 'html5', array( 'comment-list', 'search-form', 'comment-form', ) );
+    // Add HTML5 elements. Not required for ClassicPress v>2.
+    //add_theme_support( 'html5', array( 'comment-list', 'search-form', 'comment-form', ) );
 }
 
 /**
@@ -131,7 +131,7 @@ function jacqui_custom_enqueue_scripts()
     
     // enqueue scripts to control responsive DOM of templates
     wp_enqueue_script( 'harvey', get_template_directory_uri() .'/library/js/harvey.js', '', '', true );
-    wp_enqueue_script( 'jacqui_js', get_template_directory_uri() .'/library/js/theme.js', array( 'jquery' ), '', true );
+    wp_enqueue_script( 'jacqui_js', get_template_directory_uri() .'/library/js/theme.js', '', '', true );
 }
     add_action( 'wp_enqueue_scripts', 'jacqui_custom_enqueue_scripts' );
 
