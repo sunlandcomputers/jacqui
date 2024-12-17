@@ -100,7 +100,7 @@ function jacqui_setup()
     add_theme_support( 'custom-header', $custom_header_support );
 
     // remove header text control from customizer and use default header in admin menu
-    define( 'NO_HEADER_TEXT', true );
+    if( defined ('NO_HEADER_TEXT') ) define( 'NO_HEADER_TEXT', true );        // phpcs:ignore WordPress.WP.DiscouragedConstants.NO_HEADER_TEXTDeclarationFound
 
     // Add support for custom backgrounds
     $custom_background_support = array(
@@ -143,16 +143,16 @@ function jacqui_custom_enqueue_scripts()
     add_action( 'wp_enqueue_scripts', 'jacqui_add_google_fonts', 5);
 
 
-    // add ie conditional html5 shim to header
+    /*
 function jacqui_add_ie_html5_shim () 
 {
       echo "<!--[if lt IE 9]>\n";
-        echo '<script src="', get_template_directory_uri() .'/library/js/html5.js"></script>'."\n";
+        echo '<script src="', get_template_directory_uri() .'/library/js/html5.js"></script>'."\n"; // phpcs ignore: WordPress.WP.EnqueuedResources.NonEnqueuedScript
         echo '<meta http-equiv="X-UA-Compatible" content="IE=9"/>'."\n";
         echo "<![endif]-->\n";
 }
-    add_action('wp_head', 'jacqui_add_ie_html5_shim');
-
+    add_action('wp_head', 'jacqui_add_ie_html5_shim'); 
+    */
 
     /**
      * Add a style block to the theme for title, post meta and link color.
@@ -169,10 +169,10 @@ function jacqui_add_ie_html5_shim ()
             $link_color = esc_html( $jacqui_theme_options['link_color'] ); ?>
             <style>
             .post-meta a, .entry-content a, .widget a, .site-title a, .header-wrap a, .header-wrap a:visited, .entry-title a, .profile-content a { 
-                color: <?php echo $link_color; ?> !important; 
+                color: <?php echo esc_attr( $link_color ); ?> !important; 
             }
             .profile-content a { 
-                border-color: <?php echo $link_color; ?> !important; 
+                border-color: <?php echo esc_attr( $link_color ); ?> !important; 
             }
             </style>
             <?php } else { ?>
@@ -260,9 +260,9 @@ function jacqui_pagination() {
 	if ( ! empty( $pagination_return ) ) {
 		echo '<div id="pagination">';
 		echo '<div class="total-pages">';
-		printf( __( 'Page %1$s of %2$s', 'jacqui' ), $current, $wp_query->max_num_pages );
+		printf( '%1$s of %2$s', esc_attr( $current ), esc_attr( $wp_query->max_num_pages ) );
 		echo '</div>';
-		echo $pagination_return;
+		echo wp_kses_post( $pagination_return );
 		echo '</div>';
 	}
 }
@@ -319,7 +319,7 @@ function jacqui_link_pages( $args = '' ) {
 	$output = '';
 	$r = wp_parse_args( $args, $defaults );
 	$r = apply_filters( 'wp_link_pages_args', $r );
-	extract( $r, EXTR_SKIP );
+	extract( $r, EXTR_SKIP );                      // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
 
 	if ( $multipage ) {
 	    $output .= $before;
@@ -348,11 +348,11 @@ add_filter( 'use_default_gallery_style', '__return_false' );
  */
 function jacqui_primary_attr() {
     $jacqui_theme_options = jacqui_theme_options();
-        $column = sanitize_html_class( $jacqui_theme_options['primary'] );
-        $layout = sanitize_html_class( $jacqui_theme_options['layout'] );
+        $column           = sanitize_html_class( $jacqui_theme_options['primary'] );
+        $layout           = sanitize_html_class( $jacqui_theme_options['layout'] );
             $class = ( 3 == $layout ) ? $column . ' centered' : $column;
             $style = ( 1 == $layout ) ? ' style="float: right;"' : '';
-    echo 'class="' . $class . '"' . $style;
+    echo 'class="' . esc_attr( $class ) . '"' . esc_attr( $style );
 }
 
 /**
@@ -366,7 +366,7 @@ function jacqui_sidebar_class() {
         $class = str_replace( 'c', '', $jacqui_theme_options['primary'] );
             $class = 'c' . ( 12 - $class ) . $end;
     $output = esc_attr( force_balance_tags( $class ) );
-    echo 'class="' . $output . '"';
+    echo 'class="' . esc_attr( $output ) . '"';
 }
 
 add_filter( 'body_class','jacqui_custom_body_class' );
@@ -410,10 +410,10 @@ function jacqui_get_gallery_images() {
 
 	if ( ! $images ) {
 		$images = get_posts( array(
-			'fields' => 'ids',
-			'numberposts' => 999,
-			'order' => 'ASC',
-			'orderby' => 'menu_order',
+			'fields'     => 'ids',
+			'numberposts' => 999,          // phpcs:ignore WordPress.WP.PostsPerPage.posts_per_page_numberposts
+			'order'        => 'ASC',
+			'orderby'       => 'menu_order',
 			'post_mime_type' => 'image',
 			'post_parent' => get_the_ID(),
 			'post_type' => 'attachment',

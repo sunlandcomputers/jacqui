@@ -11,36 +11,50 @@ get_header(); ?>
 				<h1 class="page-title">
 					<?php if ( is_category() ) : ?>
 						<?php echo single_cat_title( '', false ); ?>
-					<?php elseif ( is_author() ) : ?>
-						<?php printf( __( 'Author Archive for %s', 'jacqui' ), get_the_author_meta( 'display_name', get_query_var( 'author' ) ) ); ?>
-					<?php elseif ( is_tag() ) : ?>
-						<?php printf( __( 'Tag Archive for %s', 'jacqui' ), single_tag_title( '', false ) ); ?>
-					<?php elseif ( is_day() ) : ?>
-						<?php printf( __( 'Daily Archives: %s', 'jacqui' ), get_the_date() ); ?>
-					<?php elseif ( is_month() ) : ?>
-						<?php printf( __( 'Monthly Archives: %s', 'jacqui' ), get_the_date( _x( 'F Y', 'monthly archives date format', 'jqi' ) ) ); ?>
-					<?php elseif ( is_year() ) : ?>
-						<?php printf( __( 'Yearly Archives: %s', 'jacqui' ), get_the_date( _x( 'Y', 'yearly archives date format', 'jqi' ) ) ); ?>
-					<?php else : ?>
-						<?php _e( 'Blog Archives', 'jacqui' ); ?>
-					<?php endif; ?>
+						<?php 
+						elseif ( is_author() ) : ?>
+							<?php 
+							echo esc_html__( 'Author Archive for ', 'jacqui' ) 
+								. esc_attr( get_the_author_meta( 'display_name', get_query_var( 'author' ) ) ); ?>
+						<?php 
+						elseif ( is_tag() ) : ?>
+							<?php 
+							echo esc_html__( 'Tag Archive for ', 'jacqui' ) . single_tag_title( '', false ); ?>
+						<?php 
+						elseif ( is_day() ) : ?>
+							<?php 
+							echo esc_html__( 'Daily Archives: %s', 'jacqui' ) .	get_the_date(); ?>
+						<?php 
+						elseif ( is_month() ) : ?>
+							<?php 
+							echo esc_html__( 'Monthly Archives: %s', 'jacqui' ) . get_the_date( _x( 'F Y', 'monthly archives date format', 'jacqui' ) ); ?>
+						<?php 
+						elseif ( is_year() ) : ?>
+							<?php 
+							echo esc_html__( 'Yearly Archives: %s', 'jacqui' ) . get_the_date( _x( 'Y', 'yearly archives date format', 'jacqui' ) ); ?>
+						<?php 
+						else : ?>
+							<?php 
+								esc_html_e( 'Archives', 'jacqui' ); ?>
+					<?php 
+				    endif; ?>
 				</h1><!-- .page-title -->
 				<?php
-				if ( is_category() ) :
-					if ( $category_description = category_description() )
+				/* if ( is_category() ) :
+					if ( $category_description = category_description() ) 
 						echo 'category';
-						/*<h2 class="archive-meta">' . $category_description . '</h2>'; */
-				endif;
+						<h2 class="archive-meta">' . $category_description . '</h2>';
+				endif; */
 
 				if ( is_author() ) :
 					$curauth = ( get_query_var('author_name') ) ? get_user_by( 'slug', get_query_var( 'author_name' ) ) : get_userdata( get_query_var(' author' ) );
 					if ( isset( $curauth->description ) )
-						echo '<h2 class="archive-meta">' . $curauth->description . '</h2>';
+						echo '<h2 class="archive-meta">' . wp_kses_post( $curauth->description ) . '</h2>';
 				endif;
 
 				if ( is_tag() ) :
 					if ( $tag_description = tag_description() )
-						echo '<h2 class="archive-meta">' . $tag_description . '</h2>';
+						echo '<h2 class="archive-meta">' . wp_kses_post( $tag_description ) . '</h2>';
 				endif;
 				?>
 			</header><!-- #archive-header -->

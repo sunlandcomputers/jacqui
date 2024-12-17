@@ -10,14 +10,21 @@
  * @since jacqui 0.1
  */
 get_header(); ?>
-    <div id="primary" <?php esc_attr( jacqui_primary_attr() ); ?>>
-    <?php if ( have_posts() ) : ?>
-        <?php get_template_part( 'content' ); ?>
-            <?php comments_template(); ?>
 
-        <?php else : ?>
-            <?php get_template_part( 'content', 'none' ); ?>
-    <?php endif; // end of the loop. ?>
+    <div id="primary" <?php esc_attr( jacqui_primary_attr() ); ?>>
+    <?php 
+    if ( have_posts() ) : ?>
+        <?php 
+        get_template_part( 'content' ); ?>
+         
+        <?php comments_template(); ?>
+
+        <?php 
+        else : ?>
+        <?php get_template_part( 'content', 'none' ); ?>
+    <?php 
+    endif; // end of the loop. ?>
 
     </div><!-- #primary.c8 -->
-<?php get_footer(); ?>
+<?php 
+get_footer(); ?>
