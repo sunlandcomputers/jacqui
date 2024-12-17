@@ -1,5 +1,9 @@
 = Jacqui =
-
+Theme name: Jacqui
+Text domain: jacqui
+Requires PHP: 7.2
+Requires CP:  1.4
+Tested up to: 2.3
 * by Larry Judd Oliver http://tradesouthwest.com/
 * built on the Gridiculous Responsive Grid Boilerplate http://gridiculo.us/
 
