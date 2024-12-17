@@ -1,9 +1,19 @@
 = Jacqui =
-Theme name: Jacqui
-Text domain: jacqui
+
+Theme Name:   Jacqui
+
+Contributors: Sunland Computers
+
 Requires PHP: 7.2
+
 Requires CP:  1.4
+
 Tested up to: 2.3
+
+Version:      2.0.0
+
+Text domain:  jacqui
+
 * by Larry Judd Oliver http://tradesouthwest.com/
 * built on the Gridiculous Responsive Grid Boilerplate http://gridiculo.us/
 

@@ -23,6 +23,8 @@ Tags: one-column, two-columns, right-sidebar,
 
 ## ABOUT JACQUI 
 
+Custom posts type displays under menu below header. Create up to 12. Perfect for showing products or small ads, even show off photos and personal profile links as well as Call-to-Action buttons. Theme Features = Left or right sidebar, or both; 12 step content width; Responsive layout; Top and footer menu; Top widget area; Footer widget area is horizontal and accommodates up to three; Set link colors; Add or remove header title or description; Background image or color; Header text color options. Theme uses Fluid layout built with Gridiculous. Theme named after my wonderful sister, Jacqui. Demo at http://themes.tradesouthwest.com/jacqui.
+
 Supported post formats: Video, Image, Aside, Status, Audio, Quote, Link and Gallery. Works perfectly in desktop browsers, tablets and handheld devices. 
 
 [For a live demo go to ](http://jacqui.tswdev.com]
