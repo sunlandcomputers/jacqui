@@ -1,3 +1,5 @@
+![Jacqui Banner](library/banner-1544x500-jacqui.png)
+
 #  Jacqui Theme for ClassicPress
 Built on the Gridiculous Responsive Grid Boilerplate 
 
@@ -12,7 +14,7 @@ Requires CP:  1.4
 
 Tested up to: 2.3
 
-Version:      2.0.0
+Version:      2.0.1
 
 Text domain:  jacqui
 
