@@ -6,7 +6,9 @@ Built on the Gridiculous Responsive Grid Boilerplate
 
 Theme Name:   Jacqui
 
-Contributors: Sunland Computers
+Author:       Sunland - Tradesouthwest
+
+Contributors: Elisbetta Carrara
 
 Requires PHP: 7.2
 
@@ -61,5 +63,10 @@ License: [[http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL|SIL O
 All bundled images including background created with GIMP by Author | GPL License
 
 ## CHANGELOG 
+
+2.0.1 
+Dec 27, 2024
+added strict to Customizer class
+
 2.0.0
 * 1st release to ClassicPress
